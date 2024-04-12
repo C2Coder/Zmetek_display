@@ -1,1 +1,5 @@
 *.exe
+dist
+build
+converter*
+*.spec
