@@ -1,5 +1,6 @@
 import sys
 from PIL import Image, ImageSequence
+import os
 
 raw_data: bytes
 out = []
@@ -35,9 +36,9 @@ frames = resize(frames)
 
 om = next(frames)
 om.info = im.info
-om.save(f"edited_{in_file}", save_all=True, append_images=list(frames))
+om.save(in_file.replace(".gif", "_edited.gif"), save_all=True, append_images=list(frames))
 
-with open(f"edited_{in_file}", "rb") as f:
+with open(in_file.replace(".gif", "_edited.gif"), "rb") as f:
     raw_data = f.read()
 
 
