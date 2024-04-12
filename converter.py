@@ -12,7 +12,20 @@ gif_name = sys.argv[3]
 def resize(frames):
     for frame in frames:
         f = frame.copy()
-        yield f.resize((240, 240))
+        # Determine the dimensions of the resized image
+        width, height = f.size
+        min_dim = min(width, height)
+        new_size = (240, 240)
+
+        # Calculate the crop region
+        left = (width - min_dim) // 2
+        top = (height - min_dim) // 2
+        right = (width + min_dim) // 2
+        bottom = (height + min_dim) // 2
+        crop_region = (left, top, right, bottom)
+        f = f.crop(crop_region)
+        f = f.resize(new_size)
+        yield f
 
 
 im = Image.open(in_file)
